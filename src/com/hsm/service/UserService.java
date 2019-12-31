@@ -58,4 +58,17 @@ public class UserService {
     } 
     return pageCount;
   }
+  
+  
+  public boolean delUser(String id) {
+	  String sql = "delete from users where id=?";
+	  String parameters[]= {id};
+	  boolean b = true;
+	  try {
+		  SqlHelper.executeUpdate(sql, parameters);
+	  }catch(RuntimeException e) {
+		  b = false;
+	  }
+	  return b;
+  }
 }

@@ -22,7 +22,11 @@ public class ManageUsers extends HttpServlet {
     response.setContentType("text/html");
     response.setCharacterEncoding("UTF-8");
     response.getWriter().append("<script type='text/javascript' language='javascript'>");
-    response.getWriter().append("function gotoPageNow() {var pageNow=document.getElementById('pageNow');alert(pageNow.value);window.open('/UserManager2/ManageUsers?pageNow=' + pageNow.value,'_self');}");
+    response.getWriter().append("function gotoPageNow() {"
+    		+ "var pageNow=document.getElementById('pageNow');"
+    		+ "window.open('/UserManager2/ManageUsers?pageNow=' + pageNow.value,'_self');}");
+    response.getWriter().append("function confirmOper() {"
+    		+ "return window.confirm('真的要删除该用户吗');}");
     response.getWriter().append("</script>");
     response.getWriter().append("<img src='imgs/tomcat.gif' /><a href=/UserManager2/LoginServlet>返回重新登录</a>");
     response.getWriter().append("<a href=/UserManager2/ManageUsers></a>");
@@ -36,7 +40,7 @@ public class ManageUsers extends HttpServlet {
     try {
       UserService userService = new UserService();
       pageCount = userService.getPageCount(pageSize);
-      System.out.println("=================" + pageCount);
+      //System.out.println("=================" + pageCount);
       String sPageNow = request.getParameter("pageNow");
       if(sPageNow != null) {
     	  pageNow = Integer.parseInt(sPageNow);
@@ -54,7 +58,7 @@ public class ManageUsers extends HttpServlet {
             "</td><td>" + username + 
             "</td><td>" + email + 
             "</td><td>" + grade + 
-            "</td><td><a href='***' >删除用户</a></td><td><a href='***' >修改用户</a></td></tr>");
+            "</td><td><a onClick='return confirmOper()' href='/UserManager2/DelClServlet?id=" + id + "' >删除用户</a></td><td><a href='***' >修改用户</a></td></tr>");
       } 
       response.getWriter().append("</table>");
       if (pageNow != 1)
