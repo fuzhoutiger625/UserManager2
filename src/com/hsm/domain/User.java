@@ -8,8 +8,19 @@ public class User {
   private String passwd;
   
   private int id;
+  public User() {
+  }
   
-  private int grade;
+  public User(int id, String username, String email, int grade, String passwd) {
+	super();
+	this.id = id;
+	this.username = username;
+	this.email = email;
+	this.grade = grade;
+	this.passwd = passwd;
+}
+
+private int grade;
   
   private String email;
   

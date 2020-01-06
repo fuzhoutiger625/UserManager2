@@ -29,7 +29,8 @@ public class Ok extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 	    response.setCharacterEncoding("UTF-8");
-		response.getWriter().append("恭喜你，操作成功</br>");
+	    String info = (String) request.getAttribute("info");
+		response.getWriter().append("恭喜你，" +info+"</br>");
 
 		response.getWriter().append("<a href=/UserManager2/ManageUsers>返回主界面</a>");
 	}

@@ -24,12 +24,9 @@ public class LoginClServlet extends HttpServlet {
     user.setId(Integer.parseInt(id));
     user.setPasswd(passwd);
     UserService us = new UserService();
-    System.out.println("11111111");
     if (us.checkUser(user)) {
-    	System.out.println("222222222");
       request.getRequestDispatcher("/MainFrame").forward(request, response);
     } else {
-    	System.out.println("3333333");
       request.setAttribute("err", "ÓÃ»§ÃûÃÜÂë´íÎó");
       request.getRequestDispatcher("/LoginServlet").forward(request, response);
     } 

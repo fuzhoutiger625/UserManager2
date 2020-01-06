@@ -17,9 +17,9 @@ public class MainFrame extends HttpServlet {
     response.getWriter().append("<img src='imgs/tomcat.gif' /> <a href=/UserManager2/LoginServlet>返回重新登录</a><br>");
     //response.getWriter().append("<h3><br>");
     response.getWriter().append("<a href=/UserManager2/ManageUsers>用户管理</a><br>");
-    response.getWriter().append("<a href=??></a><br>");
-    response.getWriter().append("<a href=??></a><br>");
-    response.getWriter().append("<a href=??></a><br>");
+    response.getWriter().append("<a href=/UserManager2/UserClServlet?type=gotoAddUser>添加用户</a><br>");
+    response.getWriter().append("<a href=/UserManager2/UserClServlet?type=gotoSearchUser>查找用户</a><br>");
+    response.getWriter().append("<a href=??>退出系统</a><br>");
   }
   
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

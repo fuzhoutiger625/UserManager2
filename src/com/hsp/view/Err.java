@@ -29,7 +29,8 @@ public class Err extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 	    response.setCharacterEncoding("UTF-8");
-		response.getWriter().append("对不起，操作失败");
+	    String info = (String) request.getAttribute("info");
+		response.getWriter().append("对不起，" +info+ "<br>");
 	}
 
 	/**

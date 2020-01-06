@@ -53,12 +53,13 @@ public class ManageUsers extends HttpServlet {
         int id = u.getId();
         String username = u.getUsername();
         String email = u.getEmail();
-        String grade = u.getPasswd();
+        String grade = u.getGrade() + "";
         response.getWriter().append("<tr><td>" + id + 
             "</td><td>" + username + 
             "</td><td>" + email + 
             "</td><td>" + grade + 
-            "</td><td><a onClick='return confirmOper()' href='/UserManager2/DelClServlet?id=" + id + "' >删除用户</a></td><td><a href='***' >修改用户</a></td></tr>");
+            "</td><td><a onClick='return confirmOper()' href='/UserManager2/UserClServlet?type=del&id=" + id + "' >删除用户</a></td>"
+            		+ "<td><a href='/UserManager2/UserClServlet?type=gotoUpdateView&id=" + id + "' >修改用户</a></td></tr>");
       } 
       response.getWriter().append("</table>");
       if (pageNow != 1)
