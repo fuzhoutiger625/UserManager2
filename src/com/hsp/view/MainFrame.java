@@ -1,4 +1,5 @@
 package com.hsp.view;
+import com.hsm.domain.User;
 import com.hsp.view.MainFrame;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -10,13 +11,22 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet({"/MainFrame"})
 public class MainFrame extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("text/html");
+    
+	  HttpSession session = request.getSession();
+	  User user = (User)session.getAttribute("login");
+	  if(null == user ) {
+		  request.setAttribute("err", "请输入用户名密码");
+		  request.getRequestDispatcher("/LoginServlet").forward(request, response);
+		  return ;
+	  }
+	  response.setContentType("text/html");
     response.setCharacterEncoding("UTF-8");
     String val = request.getParameter("iskeepinfo");
     String id = request.getParameter("id");
@@ -40,7 +50,7 @@ public class MainFrame extends HttpServlet {
     response.getWriter().append("<a href=/UserManager2/ManageUsers>用户管理</a><br>");
     response.getWriter().append("<a href=/UserManager2/UserClServlet?type=gotoAddUser>添加用户</a><br>");
     response.getWriter().append("<a href=/UserManager2/UserClServlet?type=gotoSearchUser>查找用户</a><br>");
-    response.getWriter().append("<a href=??>退出系统</a><br>");
+    response.getWriter().append("<a href=/UserManager2/LoginClServlet?type=logout>退出系统</a><br>");
   }
   
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

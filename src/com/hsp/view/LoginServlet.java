@@ -23,8 +23,10 @@ public class LoginServlet extends HttpServlet {
     response.getWriter().append("<img src='imgs/tomcat.gif' /><hr/>");
     response.getWriter().append("<h1>用户登录</h1>");
     response.getWriter().append("<form action='/UserManager2/LoginClServlet' mechod='post'>");
+    response.getWriter().append("<input type='hidden'  name='type' value='login'/><br>");
     response.getWriter().append("用户名：<input type='text' name='id' value='"+id+"'/><br>");
     response.getWriter().append("密码：<input type='password' name='password'/><br>");
+    response.getWriter().append("验证码：<input type='text' name='checkcode'/><img src='/UserManager2/CreateCode' /><br>");
     response.getWriter().append("<input type='checkbox' value='keep' name='iskeepinfo'/>在此电脑上保留用户名<br>");
     response.getWriter().append("<input type='submit' value='登录'/><br>");
     response.getWriter().append("</form>");
