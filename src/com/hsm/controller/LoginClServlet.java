@@ -1,5 +1,5 @@
 package com.hsm.controller;
-import com.hsm.controller.LoginClServlet;
+
 import com.hsm.domain.User;
 import com.hsm.service.UserService;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class LoginClServlet extends HttpServlet {
 	      request.getRequestDispatcher("/LoginServlet").forward(request, response);
 	      return ;
     }
-    
+
     String type = request.getParameter("type");
     if ("login".equals(type)) {
 	    String id = request.getParameter("id");
