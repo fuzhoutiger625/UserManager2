@@ -35,14 +35,22 @@ public class BuyBookCl extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 	    response.setCharacterEncoding("UTF-8");
-	    String bookname = request.getParameter("name");
+//	    String bookname = request.getParameter("name");
+//	    String id = request.getParameter("id");
+//	    float price = Float.parseFloat(request.getParameter("price"));
+//	    Book book = new Book();
+//	    book.setId(id);
+//	    book.setName(bookname);
+//	    book.setPrice(price);
 	    String id = request.getParameter("id");
+	    Book bookInfo = DB.getBookById(id);
 	    Book book = new Book();
-	    book.setId(id);
-	    book.setName(bookname);
+	    book.setId(bookInfo.getId());
+	    book.setName(bookInfo.getName());
+	    book.setPrice(bookInfo.getPrice());
 	    HashMap<String, Book> mybooks;
 	    HttpSession session = request.getSession();
-	    mybooks = (HashMap) session.getAttribute("mybooks");
+	    mybooks = (HashMap<String, Book>) session.getAttribute("mybooks");
 	    if(null == mybooks) {
 	    	mybooks = new HashMap<String, Book>();
 	    	book.setNum(1);

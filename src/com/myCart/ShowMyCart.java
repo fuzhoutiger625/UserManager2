@@ -35,17 +35,23 @@ public class ShowMyCart extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().append("<a href='/UserManager2/ShowBook' >返回继续购买</a><br/>");
+	    request.getSession();
+	    String url = response.encodeURL("/UserManager2/ShowBook");
+	    response.getWriter().append("<a href='"+url+"'>返回继续购买</a><br/>");
 	    HttpSession session = request.getSession();
 	    HashMap<String, Book> mybooks = (HashMap<String, Book>) session.getAttribute("mybooks");
+	    float total = 0;
 	    if(mybooks != null) {
 	    	response.getWriter().append("您的购物车有：<br/>");
 	    	Iterator iterator = mybooks.keySet().iterator();
 		    while(iterator.hasNext()) {
 		    	String key = (String) iterator.next();
 		    	Book book = mybooks.get(key);
-		    	response.getWriter().append(book.getName() + " " + book.getNum() + "<br/>");
+		    	float t1 = book.getPrice() * book.getNum();
+		    	response.getWriter().append(book.getName() + " " + book.getNum() +",总价格为:"+ t1 + "<br/>");
+		    	total += t1;
 		    }
+		    response.getWriter().append("一共需要付款:" + total);
 	    }
 	}
 

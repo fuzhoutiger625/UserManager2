@@ -1,6 +1,10 @@
 package com.myCart;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +36,19 @@ public class ShowBook extends HttpServlet {
 			    response.setCharacterEncoding("UTF-8");
 			    response.getWriter().append("<h1>欢迎购买</h1>");
 			    
-			    response.getWriter().append("java书<a href='/UserManager2/BuyBookCl?id=1&name=java'>点击购买</a><br/>");
-			    response.getWriter().append("oracle书<a href='/UserManager2/BuyBookCl?id=2&name=oracle'>点击购买</a><br/>");
-			    response.getWriter().append("c书<a href='/UserManager2/BuyBookCl?id=3&name=c'>点击购买</a><br/>");
+//			    response.getWriter().append("java书<a href='/UserManager2/BuyBookCl?id=1&name=java&price=1.1'>点击购买</a><br/>");
+//			    response.getWriter().append("oracle书<a href='/UserManager2/BuyBookCl?id=2&name=oracle&price=2.3'>点击购买</a><br/>");
+//			    response.getWriter().append("c书<a href='/UserManager2/BuyBookCl?id=3&name=c&price=4.6'>点击购买</a><br/>");
+			    
+		HashMap<String, Book> mydb = DB.getDB();
+		Iterator iterator = mydb.keySet().iterator();
+		request.getSession();
+		while(iterator.hasNext()) {
+			String key = (String) iterator.next();
+			Book book = mydb.get(key);
+			String url = response.encodeURL("/UserManager2/BuyBookCl?id="+book.getId());
+			response.getWriter().append(book.getName() + "<a href='"+url+"'>点击购买</a><br/>");
+		}
 	}
 
 	/**
