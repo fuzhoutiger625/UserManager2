@@ -2,6 +2,12 @@ package com.hsm.controller;
 
 import com.hsm.domain.User;
 import com.hsm.service.UserService;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -15,6 +21,51 @@ import javax.servlet.http.HttpSession;
 @WebServlet({"/LoginClServlet"})
 public class LoginClServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+  
+  public void init(){
+	  System.out.println("================init===================");
+	  String filePath = this.getServletContext().getRealPath("record.txt");
+	  System.out.println("------" + filePath);
+	  
+	  try {
+		FileReader fileReader = new FileReader(filePath);
+		BufferedReader bufferdReader = new BufferedReader(fileReader);
+		String sloginTimes = bufferdReader.readLine();
+		System.out.println("============" + sloginTimes);
+		int loginTimes = Integer.parseInt(sloginTimes);
+		this.getServletContext().setAttribute("loginTimes", loginTimes);
+		bufferdReader.close();
+		fileReader.close();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+  }
+  
+  public void destroy() {
+	  System.out.println("================destroy===================");
+	  String filePath = this.getServletContext().getRealPath("record.txt");
+	  
+	  try {
+		FileWriter fileWriter = new FileWriter(filePath);
+		BufferedWriter bufferdWriter = new BufferedWriter(fileWriter);
+		int loginTimes = (int) this.getServletContext().getAttribute("loginTimes");
+		System.out.println("================loginTimes===================" + loginTimes);
+		bufferdWriter.write(loginTimes+"");
+		bufferdWriter.flush();
+		bufferdWriter.close();
+		fileWriter.close();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+  }
   
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html");
@@ -43,6 +94,13 @@ public class LoginClServlet extends HttpServlet {
 	    UserService us = new UserService();
 	    if (us.checkUser(user)) {
 	      session.setAttribute("login", user);
+	      Object object = this.getServletContext().getAttribute("loginTimes");
+	      System.out.println("objectobjectobject" + object);
+	      int loginTimes = 0;
+	      if(object != null) {
+	    	  loginTimes = (int)object;  
+	      }
+	      this.getServletContext().setAttribute("loginTimes", loginTimes + 1);
 	      request.getRequestDispatcher("/MainFrame").forward(request, response);
 	      
 	    } else {

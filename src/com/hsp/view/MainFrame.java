@@ -51,6 +51,9 @@ public class MainFrame extends HttpServlet {
     response.getWriter().append("<a href=/UserManager2/UserClServlet?type=gotoAddUser>添加用户</a><br>");
     response.getWriter().append("<a href=/UserManager2/UserClServlet?type=gotoSearchUser>查找用户</a><br>");
     response.getWriter().append("<a href=/UserManager2/LoginClServlet?type=logout>退出系统</a><br>");
+    
+    int loginTimes = (int) this.getServletContext().getAttribute("loginTimes");
+    response.getWriter().append("本网站一共被访问"+ loginTimes +"次");
   }
   
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
